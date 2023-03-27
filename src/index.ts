@@ -1,18 +1,16 @@
-import {AppDataSource} from "./data-soure";
-import express from 'express';
-import bodyParser from "body-parser";
-import cors from "cors"
-import {router} from "./router/router";
-const http = require("http");
-const app = express();
-AppDataSource.initialize().then(() => {
-    console.log(" Connect Server! ")
+import express, { Request, Response } from 'express'
+
+const app = express()
+const port = process.env.PORT || 8080
+
+app.get('/', (_req: Request, res: Response) => {
+    return res.send('Express Typescript on Vercel')
 })
-app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(express.static('./public'));
-app.use('', router);
-app.listen(3000, () => {
-    console.log(' Connect Server! ')
+
+app.get('/ping', (_req: Request, res: Response) => {
+    return res.send('pong 🏓')
+})
+
+app.listen(port, () => {
+    return console.log(`Server is listening on ${port}`)
 })
